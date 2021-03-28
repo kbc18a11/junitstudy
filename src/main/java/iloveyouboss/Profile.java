@@ -11,25 +11,40 @@ package iloveyouboss;
 import java.util.*;
 
 public class Profile {
+   // 質問の回答集
    private Map<String, Answer> answers = new HashMap<>();
    private int score;
    private String name;
 
+   /**
+    * 
+    * @param name
+    */
    public Profile(String name) {
       this.name = name;
    }
 
+   /**
+    * 
+    * @return
+    */
    public String getName() {
       return name;
    }
 
+   /**
+    * 質問の回答をリストに入れる
+    * 
+    * @param answer
+    */
    public void add(Answer answer) {
       answers.put(answer.getQuestionText(), answer);
    }
 
    /**
+    * 企業の条件と求職者の条件を集計し、マッチングしてるかどうかを図る
     * 
-    * @param criteria
+    * @param criteria 企業の条件
     * @return
     */
    public boolean matches(Criteria criteria) {

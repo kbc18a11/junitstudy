@@ -14,7 +14,9 @@ public class ProfileTest {
 
    @Test
    public void test() {
+      // プロフィール生成
       Profile profile = new Profile("Bull Hockey, Inc.");
+      // 質問生成
       Question question = new BooleanQuestion(1, "ボーナスは支給されますか?");
       Criteria criteria = new Criteria();
       Answer criteriaAnswer = new Answer(question, Bool.TRUE);
