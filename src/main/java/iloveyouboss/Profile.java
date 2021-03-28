@@ -10,46 +10,48 @@ package iloveyouboss;
 
 import java.util.*;
 
-public class Profile { 
-   private Map<String,Answer> answers = new HashMap<>();
+public class Profile {
+   private Map<String, Answer> answers = new HashMap<>();
    private int score;
    private String name;
 
    public Profile(String name) {
       this.name = name;
    }
-   
+
    public String getName() {
       return name;
    }
 
-   public void add(Answer answer) { 
+   public void add(Answer answer) {
       answers.put(answer.getQuestionText(), answer);
    }
-   
-   public boolean matches(Criteria criteria) { 
-      score = 0;
-      
-      boolean kill = false;
-      boolean anyMatches = false; 
-      for (Criterion criterion: criteria) {   
-         Answer answer = answers.get(
-               criterion.getAnswer().getQuestionText()); 
-         boolean match = 
-               criterion.getWeight() == Weight.DontCare || 
-               answer.match(criterion.getAnswer());
 
-         if (!match && criterion.getWeight() == Weight.MustMatch) {  
+   /**
+    * 
+    * @param criteria
+    * @return
+    */
+   public boolean matches(Criteria criteria) {
+      score = 0;
+
+      boolean kill = false;
+      boolean anyMatches = false;
+      for (Criterion criterion : criteria) {
+         Answer answer = answers.get(criterion.getAnswer().getQuestionText());
+         boolean match = criterion.getWeight() == Weight.DontCare || answer.match(criterion.getAnswer());
+
+         if (!match && criterion.getWeight() == Weight.MustMatch) {
             kill = true;
          }
-         if (match) {         
+         if (match) {
             score += criterion.getWeight().getValue();
          }
-         anyMatches |= match;  
+         anyMatches |= match;
       }
-      if (kill)       
+      if (kill)
          return false;
-      return anyMatches; 
+      return anyMatches;
    }
 
    public int score() {
